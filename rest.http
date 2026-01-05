@@ -45,9 +45,23 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBn
 ### GET /api/customer/v1/products (Get all products with filters/pagination)
 GET {{productsEP}}
 
+### GET products with pagination
+GET {{productsEP}}?page=1&limit=2
+
+###
+GET {{productsEP}}?minPrice=500&maxPrice=1500
+
+###
+GET {{productsEP}}?sortBy=price&order=asc
+
+###
+GET {{productsEP}}?sortBy=createdAt&order=desc
+
+### GET single product by its ID
+GET {{productsEP}}/695a21df27ad281b903a6193
 
 
 
 
 
-# GET /api/customer/v1/products/:id (Get single product details)
+

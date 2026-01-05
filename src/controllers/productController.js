@@ -1,4 +1,10 @@
-import { getProducts, countProducts } from "../models/products/productModel.js";
+import mongoose from "mongoose";
+
+import {
+  getProducts,
+  countProducts,
+  getProductById,
+} from "../models/products/productModel.js";
 
 export const fetchProducts = async (req, res, next) => {
   try {
@@ -19,7 +25,7 @@ export const fetchProducts = async (req, res, next) => {
 
     // category filter
     if (category) {
-      filter.category = category;
+      filter.category = new mongoose.Types.ObjectId(category);
     }
 
     // price filter
@@ -58,6 +64,24 @@ export const fetchProducts = async (req, res, next) => {
         pages: Math.ceil(total / limit),
       },
     });
+  } catch (error) {
+    next(error);
+  }
+};
+
+export const fetchProductById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const product = await getProductById(id);
+
+    if (!product) {
+      return res
+        .status(404)
+        .json({ status: "error", message: "Product not found" });
+    }
+
+    return res.json({ status: "success", product });
   } catch (error) {
     next(error);
   }

@@ -7,7 +7,7 @@ export const createNewProduct = (prodObj) => {
 };
 
 export const getProductById = (id) => {
-  return productSchema.findById(id);
+  return productSchema.findById(id).populate("category", "name");
 };
 
 export const updateProduct = async (filter, obj) => {
