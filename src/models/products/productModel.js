@@ -1,13 +1,11 @@
 import productSchema from "./productSchema.js";
 
-import "../categories/categorySchema.js"; // Import Category schema
-
 export const createNewProduct = (prodObj) => {
   return productSchema(prodObj).save();
 };
 
 export const getProductById = (id) => {
-  return productSchema.findById(id).populate("category", "name");
+  return productSchema.findById(id);
 };
 
 export const updateProduct = async (filter, obj) => {
