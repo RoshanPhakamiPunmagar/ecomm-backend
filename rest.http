@@ -6,6 +6,8 @@
 
 @categoriesEP = {{apiEP}}/categories
 
+@ordersEP = {{apiEP}}/orders
+
 # Customer Backend APIs (Base: /api/customer/v1/)
 # Authentication APIs:
 # POST /api/customer/v1/auth/signup
@@ -66,8 +68,24 @@ GET {{productsEP}}/695a21df27ad281b903a6193
 GET {{categoriesEP}}
 
 
+### Place order
+POST {{ordersEP}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NjgzNzc5NTQsImV4cCI6MTc2ODQ2NDM1NH0.Xb4PF9zo9fMlWv82hgBnd9tE8FV-tVGLQMWyHjKRktM
+Content-Type: application/json
 
+{
+  "products": [
+    {
+      "productId": "695a21df27ad281b903a6193",
+      "quantity": 2
+    },
+    {
+      "productId": "695a23c827ad281b903a619b",
+      "quantity": 1
+    }
+  ]
+}
 
-
-
-
+### Get my orders
+GET {{ordersEP}}?userId=694e49cc7d170da8829b3209
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NjgzNzc5NTQsImV4cCI6MTc2ODQ2NDM1NH0.Xb4PF9zo9fMlWv82hgBnd9tE8FV-tVGLQMWyHjKRktM

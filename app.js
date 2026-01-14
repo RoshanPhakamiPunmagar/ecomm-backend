@@ -11,6 +11,8 @@ import productRouter from "./src/routes/productRoutes.js";
 
 import categoryRouter from "./src/routes/categoryRoutes.js";
 
+import orderRouter from "./src/routes/orderRoutes.js";
+
 const app = express();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -33,6 +35,8 @@ app.use("/api/customer/v1/auth", authRouter);
 app.use("/api/customer/v1/products", productRouter);
 
 app.use("/api/customer/v1/categories", categoryRouter);
+
+app.use("/api/customer/v1/orders", orderRouter);
 
 // Global error handler
 app.use((error, req, res, next) => {
