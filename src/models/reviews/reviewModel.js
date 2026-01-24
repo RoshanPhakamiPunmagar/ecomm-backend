@@ -1,17 +1,16 @@
-import ReviewSchema from "/reviewSchema.js";
+import mongoose from "mongoose";
+import reviewSchema from "./reviewSchema.js";
 
+const Review = mongoose.model("Review", reviewSchema);
+
+// Create review
 export const createNewReview = (revObj) => {
-  return ReviewSchema(revObj).save();
+  return Review.create(revObj);
 };
 
-export const getReviewById = (id) => {
-  return ReviewSchema.findById(id);
+// Get reviews by filter
+export const getReviews = (filter) => {
+  return Review.find(filter).populate("userId", "name").sort({ createdAt: -1 });
 };
 
-export const getReviews = async (filter) => {
-  return await ReviewSchema.find(filter);
-};
-
-export const updateReview = async (filter, obj) => {
-  return await ReviewSchema.findOneAndUpdate(filter, obj);
-};
+export default Review;
