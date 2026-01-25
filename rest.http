@@ -8,6 +8,8 @@
 
 @ordersEP = {{apiEP}}/orders
 
+@reviewsEP = {{apiEP}}/reviews
+
 # Customer Backend APIs (Base: /api/customer/v1/)
 # Authentication APIs:
 # POST /api/customer/v1/auth/signup
@@ -90,8 +92,9 @@ Content-Type: application/json
 GET {{ordersEP}}?userId=694e49cc7d170da8829b3209
 Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NjgzNzc5NTQsImV4cCI6MTc2ODQ2NDM1NH0.Xb4PF9zo9fMlWv82hgBnd9tE8FV-tVGLQMWyHjKRktM
 
-### POST /api/customer/v1/reviews
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NjkyNTUyNTEsImV4cCI6MTc2OTM0MTY1MX0.2QL58XINUy5MGsdR516c2bL5M07_qafqlC5Zy-YGvRY
+### 
+POST {{reviewsEP}}
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NjkzMjg3OTYsImV4cCI6MTc2OTQxNTE5Nn0.X-J5xWTZqBpVHeaIeph3ufy9ExVKB0EWO2Ci_GidnPI
 Content-Type: application/json
 
 {

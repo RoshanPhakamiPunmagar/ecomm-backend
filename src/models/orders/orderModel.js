@@ -9,3 +9,5 @@ export const getOrdersByUser = (userId) => {
     .populate("products.productId", "name price images")
     .sort({ createdAt: -1 });
 };
+
+export default OrderSchema;

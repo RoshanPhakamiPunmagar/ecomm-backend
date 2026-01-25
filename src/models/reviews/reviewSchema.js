@@ -16,7 +16,7 @@ const reviewSchema = new mongoose.Schema(
     comment: { type: String },
     approved: { type: Boolean, default: false },
   },
-  { timestamps: { createdAt: true, updatedAt: false } }
+  { timestamps: { createdAt: true, updatedAt: false } },
 );
 
-export default mongoose.model("Review", reviewSchema);
+export default reviewSchema;
