@@ -3,6 +3,7 @@ import {
   createUser,
   loginUser,
   renewToken,
+  verifyEmail,
 } from "../controllers/authController.js";
 import {
   loginValidation,
@@ -21,7 +22,7 @@ router.post("/login", loginValidation, loginUser);
 
 // api/v1/auth/renew-jwt
 // renew token authenticator
-router.get("/verify/:token", renewauth, renewToken);
+router.get("/verify/:token", verifyEmail);
 
 router.post("/refresh-token", renewauth, renewToken);
 // api/v1/auth/users

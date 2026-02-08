@@ -38,3 +38,15 @@ export const verifyRefreshJWT = (token) => {
     return "Invalid Token";
   }
 };
+
+export const signVerificationJWT = (payload) => {
+  return JWT.sign(payload, config.jwt.secret, { expiresIn: "1d" });
+};
+
+export const verifyVerificationJWT = (token) => {
+  try {
+    return JWT.verify(token, config.jwt.secret);
+  } catch (error) {
+    return null; // return null if invalid/expired
+  }
+};

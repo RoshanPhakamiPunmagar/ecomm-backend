@@ -1,6 +1,12 @@
 import { createNewUser, getUserByEmail } from "../models/users/userModel.js";
 import { comparePassword, hashPassword } from "../utils/bcrypt.js";
-import { singAccessJWT, singRefresJWT } from "../utils/jwt.js";
+import {
+  singAccessJWT,
+  singRefresJWT,
+  signVerificationJWT,
+  verifyVerificationJWT,
+} from "../utils/jwt.js";
+import { sendVerificationEmail } from "../services/emailService.js";
 
 export const createUser = async (req, res, next) => {
   try {
@@ -11,12 +17,59 @@ export const createUser = async (req, res, next) => {
 
     const user = await createNewUser(userObject);
 
+    // create verification token
+    const verificationToken = signVerificationJWT({
+      email: user.email,
+    });
+
+    // send verification email
+    await sendVerificationEmail(user.email, verificationToken);
+
     return res.json({
       status: "success",
-      message: "User created",
+      message: "User created. Please check your email to verify your account.",
     });
   } catch (error) {
     next(error);
+  }
+};
+
+//verify userEmail
+export const verifyEmail = async (req, res, next) => {
+  try {
+    const token = decodeURIComponent(req.params.token);
+    const decoded = verifyVerificationJWT(token);
+
+    if (!decoded || !decoded.email) {
+      return res
+        .status(400)
+        .json({ status: "error", message: "Invalid token" });
+    }
+
+    const user = await getUserByEmail(decoded.email);
+
+    if (!user) {
+      return res
+        .status(400)
+        .json({ status: "error", message: "User not found" });
+    }
+
+    user.verified = true;
+    await user.save();
+
+    if (!user.verified) {
+      return res.status(403).json({
+        status: "error",
+        message: "Please verify your email first",
+      });
+    }
+
+    return res.json({
+      status: "success",
+      message: "Email verified successfully",
+    });
+  } catch (error) {
+    next({ status: 400, message: "Invalid or expired token" });
   }
 };
 

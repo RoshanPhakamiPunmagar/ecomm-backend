@@ -18,16 +18,15 @@
 # POST /api/customer/v1/auth/refresh-token
 # Product APIs:
 
-
-
 ### Signup API
 POST {{authEP}}/signup
 Content-Type: application/json
 
 {
-  "email": "customer1@gmail.com",
-  "password": "Password123"
+  "email": "roshanphakami2023@gmail.com",
+  "password": "Password127"
 }
+
 
 
 ### login API
@@ -35,13 +34,13 @@ POST {{authEP}}/login
 Content-Type: application/json
 
 {
-    "email" : "customer1@gmail.com",
-    "password" : "Password123"
+    "email" : "roshanphakami2023@gmail.com",
+    "password" : "Password127"
 }
 
 ### renew jwt
 GET {{authEP}}/verify/:token
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NjY4MTYzMjksImV4cCI6MTc2OTQwODMyOX0.WWfdpn54OA-1Zpil4IFTuKjzBvTBg1rMyJ3DuA7jqFk
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3Njk0MTk5NDAsImV4cCI6MTc3MjAxMTk0MH0.AFwlqPxUaWGjuUPHFlSvrEX93LxCCoaz5jVS0R33HPQ
 
 ### refresh token
 POST {{authEP}}/refresh-token
@@ -103,3 +102,16 @@ Content-Type: application/json
   "comment": "Very good product!"
 }
 
+
+###
+POST http://localhost:3000/payment/intent
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NzAxMTk4MTEsImV4cCI6MTc3MDIwNjIxMX0.bHTqt4I63lf3gfqRx_hdwsrROiL9jf-Ql6cfydQr3Mo
+Content-Type: application/json
+
+{
+  "amount": 120000
+}
+
+
+###
+GET http://localhost:3000/payment/config

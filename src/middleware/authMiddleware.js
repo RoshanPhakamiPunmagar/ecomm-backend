@@ -72,6 +72,8 @@ export const renewauth = async (req, res, next) => {
           return next();
         }
       }
+      console.log("Authorization:", authorization);
+      console.log("Decoded:", decoded);
     }
 
     const error = {
@@ -82,13 +84,4 @@ export const renewauth = async (req, res, next) => {
   } catch (error) {
     next(error);
   }
-};
-
-export const isAdmin = async (req, res, next) => {
-  req.userInfo.role === "admin"
-    ? next()
-    : next({
-        status: 403,
-        message: "Unauthorized",
-      });
 };
