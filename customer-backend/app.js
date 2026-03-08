@@ -27,6 +27,8 @@ app.get("/", (req, res) => {
 app.use("/public", express.static(path.join(__dirname, "src/assets")));
 app.use("/uploads", express.static("uploads"));
 
+app.use("/uploads", express.static("uploads"));
+
 // Routes
 app.use("/api/customer/v1/auth", authRouter);
 app.use("/api/customer/v1/products", productRouter);
