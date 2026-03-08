@@ -6,9 +6,9 @@ import {
 import { isCustomer } from "../middleware/roleMiddleware.js";
 const router = express.Router();
 
-router.get("/", isCustomer, fetchProducts);
+router.get("/", fetchProducts);
 
 //fetch product by its id
-router.get("/:id", isCustomer, fetchProductById);
+router.get("/:id", fetchProductById);
 
 export default router;

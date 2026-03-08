@@ -5,6 +5,6 @@ import { isCustomer } from "../middleware/roleMiddleware.js";
 const router = express.Router();
 
 // GET /api/customer/v1/categories
-router.get("/", isCustomer, fetchCategories);
+router.get("/", fetchCategories);
 
 export default router;

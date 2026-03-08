@@ -9,9 +9,9 @@ import { isCustomer } from "../middleware/roleMiddleware.js";
 const router = express.Router();
 
 // Submit review
-router.post("/", auth, isCustomer, submitReview);
+router.post("/", auth, submitReview);
 
 // Get reviews of a product
-router.get("/:productId", isCustomer, getProductReviews);
+router.get("/:productId", getProductReviews);
 
 export default router;
