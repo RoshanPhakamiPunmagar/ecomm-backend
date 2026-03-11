@@ -8,13 +8,17 @@ import { auth } from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-// create payment intent (needs auth)
+// ✅ Stripe webhook uses raw body
+router.post(
+  "/webhook",
+  express.raw({ type: "application/json" }),
+  stripeWebhook,
+);
+
+// ✅ Create PaymentIntent (JSON body, auth required)
 router.post("/intent", auth, createPaymentIntent);
 
-// webhook (NO auth, NO json)
-router.post("/webhook", stripeWebhook);
-
-// public config
+// ✅ Return Stripe publishable key
 router.get("/config", getStripeConfig);
 
 export default router;

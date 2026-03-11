@@ -34,8 +34,8 @@ POST {{authEP}}/login
 Content-Type: application/json
 
 {
-    "email" : "roshanphakami2023@gmail.com",
-    "password" : "Password127"
+    "email" : "rajuphakami2020@gmail.com",
+    "password" : "123"
 }
 
 ### renew jwt
@@ -93,7 +93,8 @@ Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBn
 
 ### 
 POST {{reviewsEP}}
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NjkzMjg3OTYsImV4cCI6MTc2OTQxNTE5Nn0.X-J5xWTZqBpVHeaIeph3ufy9ExVKB0EWO2Ci_GidnPI
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhanVwaGFrYW1pMjAyMEBnbWFpbC5jb20iLCJpYXQiOjE3NzMxOTk3MjQsImV4cCI6MTc3MzI4NjEyNH0.0O2-KiPFh_iTX4a1x6XQ0502ThypvWDANl_7wJ5qeL4 
+
 Content-Type: application/json
 
 {
@@ -104,14 +105,14 @@ Content-Type: application/json
 
 
 ###
+### Create PaymentIntent
 POST http://localhost:3000/payment/intent
-Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImN1c3RvbWVyMUBnbWFpbC5jb20iLCJpYXQiOjE3NzAxMTk4MTEsImV4cCI6MTc3MDIwNjIxMX0.bHTqt4I63lf3gfqRx_hdwsrROiL9jf-Ql6cfydQr3Mo
 Content-Type: application/json
+Authorization: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InJhanVwaGFrYW1pMjAyMEBnbWFpbC5jb20iLCJpYXQiOjE3NzMxOTk3MjQsImV4cCI6MTc3MzI4NjEyNH0.0O2-KiPFh_iTX4a1x6XQ0502ThypvWDANl_7wJ5qeL4
 
 {
   "amount": 120000
 }
-
 
 ###
 GET http://localhost:3000/payment/config
