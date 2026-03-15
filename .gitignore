@@ -11,3 +11,5 @@ logs
 dist
 build.env
 .env
+.env
+.env sample
