@@ -14,9 +14,44 @@ import paymentRouter from "./src/routes/paymentRoutes.js";
 const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-// CORS and JSON
-app.use(cors());
+/* =========================
+   CORS CONFIG (IMPORTANT)
+========================= */
+
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://ecomm-fe-bucket.s3-website-us-east-1.amazonaws.com",
+];
+
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // Allow requests with no origin (like Postman)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    credentials: true,
+  }),
+);
+
+//Handle preflight requests
+app.options("*", cors());
+
+/* =========================
+   MIDDLEWARE
+========================= */
+
 app.use(express.json());
+
+/* =========================
+   ROUTES
+========================= */
 
 // Health check
 app.get("/", (req, res) => {
@@ -27,21 +62,31 @@ app.get("/", (req, res) => {
 app.use("/public", express.static(path.join(__dirname, "src/assets")));
 app.use("/uploads", express.static("uploads"));
 
-app.use("/uploads", express.static("uploads"));
-
-// Routes
+// API Routes
 app.use("/api/customer/v1/auth", authRouter);
 app.use("/api/customer/v1/products", productRouter);
 app.use("/api/customer/v1/categories", categoryRouter);
 app.use("/api/customer/v1/orders", orderRouter);
 app.use("/api/customer/v1/reviews", reviewRouter);
 
-// ✅ Payment routes
+// Payment routes
 app.use("/payment", paymentRouter);
 
-// Global error handler
+/* =========================
+   GLOBAL ERROR HANDLER
+========================= */
+
 app.use((error, req, res, next) => {
-  console.error(error);
+  console.error("❌ Error:", error.message);
+
+  // Handle CORS errors specifically
+  if (error.message === "Not allowed by CORS") {
+    return res.status(403).json({
+      status: "fail",
+      message: "CORS policy does not allow this origin",
+    });
+  }
+
   res.status(error.status || 500).json({
     status: "error",
     message: error.message || "Internal Server Error",
