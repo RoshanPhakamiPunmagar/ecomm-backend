@@ -16,30 +16,44 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /* =========================
-   CORS CONFIG (TEMPORARY)
+   CORS CONFIG
 ========================= */
-// Allow all origins, methods, headers for testing purposes
+const allowedOrigins = [
+  "http://localhost:3000",
+  "http://ecomm-fe-bucket.s3-website-us-east-1.amazonaws.com",
+];
+
 app.use(
   cors({
-    origin: true, // allow any origin
+    origin: function (origin, callback) {
+      // Allow requests with no origin (e.g., Postman)
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // allow cookies or Authorization headers
+    credentials: true, // allows sending JWT in headers or cookies
   }),
 );
+
+// Handle preflight OPTIONS requests globally
+app.options("*", cors());
 
 /* =========================
    MIDDLEWARE
 ========================= */
 app.use(express.json());
 
-// Static files for images, assets
+// Static files for uploads
 app.use("/uploads", express.static("uploads"));
 
 /* =========================
    API ROUTES
 ========================= */
-// Health check
 app.get("/", (req, res) => {
   res.send("Scalable eCommerce Application Using MERN Stack");
 });
