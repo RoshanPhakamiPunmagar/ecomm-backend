@@ -16,32 +16,17 @@ const app = express();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 /* =========================
-   CORS CONFIG
+   CORS CONFIG (TEMPORARY)
 ========================= */
-const allowedOrigins = [
-  "http://localhost:5173",
-  "http://ecomm-fe-bucket.s3-website-us-east-1.amazonaws.com",
-];
-
-const corsOptions = {
-  origin: function (origin, callback) {
-    // Allow requests with no origin (Postman, curl)
-    if (!origin) return callback(null, true);
-
-    if (allowedOrigins.includes(origin)) {
-      callback(null, true);
-    } else {
-      console.warn("❌ CORS blocked origin:", origin);
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  methods: ["GET", "POST", "PUT", "DELETE"],
-  allowedHeaders: ["Content-Type", "Authorization"],
-  credentials: true,
-  preflightContinue: false,
-};
-
-app.use(cors("*"));
+// Allow all origins, methods, headers for testing purposes
+app.use(
+  cors({
+    origin: true, // allow any origin
+    methods: ["GET", "POST", "PUT", "DELETE", "PATCH", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true, // allow cookies or Authorization headers
+  }),
+);
 
 /* =========================
    MIDDLEWARE
@@ -49,7 +34,6 @@ app.use(cors("*"));
 app.use(express.json());
 
 // Static files for images, assets
-app.use("/public", express.static(path.join(__dirname, "src/assets")));
 app.use("/uploads", express.static("uploads"));
 
 /* =========================
