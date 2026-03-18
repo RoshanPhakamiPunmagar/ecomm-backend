@@ -3,7 +3,7 @@ import config from "./src/config/config.js";
 import { connectMongoDB } from "./src/config/db.js";
 import app from "./app.js";
 
-const PORT = config.port || 5000;
+const PORT = config.port || 3000;
 
 const startServer = async () => {
   try {

@@ -19,7 +19,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
    CORS CONFIG
 ========================= */
 const allowedOrigins = [
-  "http://localhost:3000",
+  "http://localhost:5173",
   "http://ecomm-fe-bucket.s3-website-us-east-1.amazonaws.com",
 ];
 
@@ -35,14 +35,13 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  methods: ["GET", "POST", "PUT", "DELETE"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true,
   preflightContinue: false,
 };
 
-app.use(cors(corsOptions));
-app.options("*", cors(corsOptions)); // Preflight handling
+app.use(cors("*"));
 
 /* =========================
    MIDDLEWARE
